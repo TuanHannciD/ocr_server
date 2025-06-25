@@ -5,9 +5,10 @@ import os
 
 app = Flask(__name__)
 
-# Thiết lập đường dẫn tessdata nếu cần (Render sẽ tự động nhận, nhưng để chắc chắn)
+# Thiết lập đường dẫn tessdata động, luôn đúng dù deploy ở đâu
+tessdata_dir = os.path.join(os.path.dirname(__file__), 'tessdata')
+os.environ['TESSDATA_PREFIX'] = tessdata_dir
 pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
-os.environ['TESSDATA_PREFIX'] = '/app/tessdata'
 
 @app.route('/ocr', methods=['POST'])
 def ocr():
